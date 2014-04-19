@@ -102,5 +102,26 @@ create table smooth_normal_and_clean as (
         and pass_veh > 5
 );
 
-
+-- join smooth normal clean to polygons
+drop table if exists nice_squares;
+create table nice_squares as (
+    select 
+        wkb_geometry as geom,
+        grid_id,
+        count,
+        pop10,
+        hh10,
+        pass_veh,
+        rate_veh_hi,
+        rate_veh_lo,
+        veh_person,
+        veh_hh,
+        fuel_person,
+        fuel_hh,
+        co2_person,
+        co2_hh
+    from grid
+    join smooth_normal_and_clean
+    on grid.g250m_id = smooth_normal_and_clean.grid_id
+);
 

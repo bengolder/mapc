@@ -3,9 +3,9 @@ ogr2ogr \
     -lco PRECISION=NO \
     -t_srs EPSG:26986 \
     -f 'PostgreSQL' \
-    PG:"host=localhost dbname=mapc" \
-    ./data/MassVehicleCensusData_20130310/grid_250m_shell.shp \
+    PG:"user=postgres password=postgres host=localhost dbname=mapc" \
+    '/home/bgolder/projects/mapc/data/veh_census/grid_250m_shell.shp' \
     -nlt POLYGON \
-    -nln grid
+    -nln 'grid'
 export PGCLIENTENCODING=UTF8
 

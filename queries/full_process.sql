@@ -1,3 +1,12 @@
+-- here we assume that we have already copied in 3 datasets:
+-- grid_quarters_public and rae_public
+-- as well as the grid shapefile (using ogr2ogr into a table named 'grid')
+-- and the grid attributes (as shown below)
+copy grid_atts from
+    '/home/bgolder/projects/mapc/data/Tabular/grid250m_attributes.csv'
+    delimiter ','
+    csv header
+;
 
 -- create averages of the 2010 quarters
 drop table if exists avgs_2010;
@@ -9,18 +18,20 @@ create table avgs_2010 as (
       avg(pass_veh) as pass_veh,
       avg(glpdaypass) as fuelperday,
       avg(co2eqv_day) as co2perday
-    from squares
+    from grid_quarters_public
     where
         quarter like '2010%'
     group by g250m_id
 );
 
+
+-- grab centroids of each grid polygon and
 -- add all desired attributes to each point
 drop table if exists avgs_pts;
 create table avgs_pts as (
     select
-        p.grid_id,
-        p.pt,
+        p.g250m_id as grid_id,
+        ST_Centroid(p.wkb_geometry) as pt,
         a.pop10,
         a.hh10,
         d.veh_lo,
@@ -28,9 +39,9 @@ create table avgs_pts as (
         d.pass_veh,
         d.fuelperday,
         d.co2perday
-    from grid_pts as p
-    join avgs_2010 as d on d.g250m_id = p.grid_id
-    join grid_atts as a on a.g250m_id = p.grid_id
+    from grid as p
+    join avgs_2010 as d on d.g250m_id = p.g250m_id
+    join grid_atts as a on a.g250m_id = p.g250m_id
 );
 
 -- create a spatial index for smoothing lookups
@@ -91,20 +102,9 @@ create table normal_and_smooth as (
     from smooth_operator
 );
 
--- use some thresholds to clean out the ridiculous quantities
-drop table if exists smooth_normal_and_clean;
-create table smooth_normal_and_clean as (
-    select *
-    from normal_and_smooth
-    where
-        pop10 > 50
-        and hh10 > 10
-        and pass_veh > 5
-);
-
 -- join smooth normal clean to polygons
-drop table if exists nice_squares;
-create table nice_squares as (
+drop table if exists nice_squares15;
+create table nice_squares15 as (
     select 
         wkb_geometry as geom,
         grid_id,
@@ -120,8 +120,72 @@ create table nice_squares as (
         fuel_hh,
         co2_person,
         co2_hh
-    from grid
-    join smooth_normal_and_clean
-    on grid.g250m_id = smooth_normal_and_clean.grid_id
+    from grid as g as g
+    join ( 
+        select * from normal_and_smooth
+        where
+            pop10 > 15
+            and hh10 > 5
+            and pass_veh > 1
+    ) as n
+    on g.g250m_id = n.grid_id
 );
 
+
+-- join smooth normal clean to polygons
+drop table if exists nice_squares25;
+create table nice_squares25 as (
+    select 
+        wkb_geometry as geom,
+        grid_id,
+        count,
+        pop10,
+        hh10,
+        pass_veh,
+        rate_veh_hi,
+        rate_veh_lo,
+        veh_person,
+        veh_hh,
+        fuel_person,
+        fuel_hh,
+        co2_person,
+        co2_hh
+    from grid as g
+    join ( 
+        select * from normal_and_smooth
+        where
+            pop10 > 25
+            and hh10 > 5
+            and pass_veh > 1
+    ) as n
+    on g.g250m_id = n.grid_id
+);
+
+-- join smooth normal clean to polygons
+drop table if exists nice_squares50;
+create table nice_squares50 as (
+    select 
+        wkb_geometry as geom,
+        grid_id,
+        count,
+        pop10,
+        hh10,
+        pass_veh,
+        rate_veh_hi,
+        rate_veh_lo,
+        veh_person,
+        veh_hh,
+        fuel_person,
+        fuel_hh,
+        co2_person,
+        co2_hh
+    from grid as g
+    join ( 
+        select * from normal_and_smooth
+        where
+            pop10 > 50
+            and hh10 > 5
+            and pass_veh > 1
+    ) as n
+    on g.g250m_id = n.grid_id
+);

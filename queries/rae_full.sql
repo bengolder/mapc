@@ -13,9 +13,15 @@ drop table if exists rae_2010;
 create table rae_2010 as (
 	select * from rae
 	where
+		-- overlaps some portion of 2010
 		(date '2010-01-01', date '2010-12-31') overlaps (start_date, end_date) and
+		-- is a passenger vehicle
 		owner_type = 1 and
-		mcycle is null
+		-- is not a motorcycle
+		mcycle is null and
+		-- it has a Massachusetts zip code (or the null zip)
+		( veh_zip in (select zcta5ce10 from zipcode_w_acs) or
+		 veh_zip = '00000' )
 );
 
 
@@ -49,6 +55,16 @@ where
 update rae_2010
 	set mi_per_day = null
 where mi_per_day = 0;
+
+drop table if exists rae_vmt_zip;
+create table rae_vmt_zip as (
+	select
+		veh_zip as zip,
+		count(*),
+		avg(mi_per_day)
+	from rae_2010
+	group by veh_zip
+);
 
 drop table if exists rae_nonnull;
 create table rae_nonnull as (

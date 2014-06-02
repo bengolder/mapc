@@ -1,0 +1,92 @@
+html, body { margin: 0; padding: 0; height: 100%; 
+  font-family: Roboto Condensed; 
+  font-size: 14px;
+}
+
+#container {
+  overflow: auto;
+  position: relative;
+  height: 100%; 
+}
+
+#map { 
+  float: left;
+  width: 80%;
+  height: 100%; 
+  background-color: #444;
+}
+
+#sidebar {
+  float: left;
+  width: 20%;
+  height: 100%; 
+  background-color: #222;
+  color: #eee;
+}
+.titleblock {
+  padding-top: 24px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+path {
+  stroke: #fff;
+  stroke-width: 0.25;
+  fill-opacity: 0.5;
+  cursor: pointer;
+}
+
+.overlay {
+  font-family: Roboto Condensed; 
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 99;
+  padding-top: 4px 
+  padding-bottom: 4px 
+  padding-left: 4px;
+  padding-right: 4px;
+  overflow: auto;
+}
+
+.row { position: relative; overflow: auto; }
+
+.data, .label { float: left; }
+.label {
+  width: 140px;
+  color: #666;
+  margin-left: 4px;;
+  text-align: left;
+}
+
+.data {
+  width: 56px;
+  text-align: right;
+}
+
+
+.histogram-title {
+  color: #fff;
+  padding-left: 12px;
+}
+
+.histbar {
+  fill: #666;
+}
+
+.histbar.highlighted {
+  fill: #fff;
+}
+
+.hist-axis path.domain {
+  fill: none;
+}
+.hist-axis text {
+  font-size: 12px;
+  fill: #eee;
+}
+.tick line {
+  stroke-width: 0.5px;
+  stroke: #eee;
+}
+
+

@@ -1,44 +1,28 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>MAPC Data Challenge</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
-        <!-- endbuild -->
-        <!-- build:js scripts/vendor/modernizr.js -->
-        <script src="bower_components/modernizr/modernizr.js"></script>
-        <!-- endbuild -->
-    </head>
-    <body>
-        <!--[if lt IE 10]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+<!DOCTYPE html>
+  <meta charset="utf-8">
+  <head>
+      <title>% median income spent on gas in Massachusetts</title>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+    <link href="style.css" rel="stylesheet" type="text/css" title="Default Style">
+    <link
+    href='http://fonts.googleapis.com/css?family=Roboto:300,700|Roboto+Condensed:300,700' rel='stylesheet' type='text/css'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  </head>
+<body>
+  <div id="container">
+    <div id="map"></div>
+    <div id="sidebar">
+      <div class="titleblock">
+      <h3>Massachusetts Fuel Burden</h3>
+      <p class="subtitle">Percent of Median Household Income Spent on Gas for each blockgroup</p>
+      </div>
+    </div>
+  </div>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="script.js"></script>
 
-
-        <div class="container">
-          <h1>MAPC Data Challenge</h1>
-          <h3>11.521 — DUSP — MIT</h3>
-
-          <ul>
-            <li>Kassie Bertumen</li>
-            <li>Diego Laserna</li>
-            <li>Halley Brunsteter</li>
-            <li>Elizabeth Irvin</li>
-            <li>Ben Golder</li>
-          </ul>
-        </div>
-
-
-        <!-- build:js scripts/main.js -->
-        <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
-        <!-- endbuild -->
 </body>
 </html>

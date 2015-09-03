@@ -1,28 +1,12 @@
 var boston = [-71.0571571, 42.3133734];
 
-var rd2grn = [
-              "#1a9850",
-              "#91cf60",
-              "#d9ef8b",
-              "#ffffbf",
-              "#fee08b",
-              "#fc8d59",
-              "#d73027",
-              ]
-
-var percents = [
-    0.018,
-    0.024,
-    0.029,
-    0.033,
-    0.038,
-    0.045,
-];
-
-
 var detailKeys = d3.map({
-    'gas_exp_hhinc': ['% Med. Inc. Spent on Gas', function(v){
-		return d3.format(".1%")(v);}],
+    'gas_exp_hhinc': [
+		'% Med. Inc. Spent on Gas', 
+		function(v){
+			return d3.format(".1%")(v);
+		},
+	],
     'hh10': ['Households', d3.format(",f")],
     'med_hh_inc': ['Med. HH Income', d3.format("$,f")],
     'vmt_hh': ['Driving per HH per day', function(d){ return d3.format(".1f")(d) + ' mi.';}]

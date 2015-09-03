@@ -3,6 +3,14 @@ html, body { margin: 0; padding: 0; height: 100%;
   font-size: 14px;
 }
 
+a {
+  text-decoration: none;
+  color: #91cf60;
+}
+a:hover {
+  color: #1a9850;
+}
+
 #container {
   overflow: auto;
   position: relative;
@@ -63,6 +71,10 @@ path {
   text-align: right;
 }
 
+
+.histogram-block {
+  cursor: pointer;
+}
 
 .histogram-title {
   color: #fff;

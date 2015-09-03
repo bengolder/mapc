@@ -221,9 +221,3 @@ d3.json('blk_grp_topo.json', function (data) {
 	}
 
 });
-
-
-
-
-
-

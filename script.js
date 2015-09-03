@@ -205,10 +205,10 @@ d3.json('blk_grp_topo.json', function (data) {
 
 		detailKeys.forEach(function (key, keyData){
 			var row = details.append("div").attr("class", "data-row");
-			row.append("div").attr("class", "data")
-				.text(keyData[1](d[key]));
 			row.append("div").attr("class", "label")
 				.text(keyData[0]);
+			row.append("div").attr("class", "data")
+				.text(keyData[1](d[key]));
 
 		    // highlight the correct bin in the corresponding histogram
 			var bin = keyData.getBin(d[key]);
